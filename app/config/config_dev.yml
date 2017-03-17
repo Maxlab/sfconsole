@@ -1,0 +1,37 @@
+imports:
+    - { resource: config.yml }
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing_dev.yml"
+        strict_requirements: true
+    profiler: { only_exceptions: false }
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+monolog:
+    handlers:
+        main:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            level: WARNING
+            channels: [!event]
+        console:
+            type:   console
+            channels: [!event, !doctrine]
+
+hautelook_alice:
+    db_drivers:
+        orm: true          # Enable Doctrine ORM if is registered
+        mongodb: false  # Enable Doctrine ODM if is registered
+        phpcr: false    # Enable Doctrine PHPCR ODM if is registered
+    locale: ru_RU       # Locale to used for faker; must be a valid Faker locale otherwise will fallback to en_US
+    seed: 1             # A seed to make sure faker generates data consistently across runs, set to null to disable
+    persist_once: false  # Only persist objects once if multiple files are passed
+    loading_limit: 50
+
+doctrine:
+    dbal:
+        dbname: "%database_name%_dev"

@@ -1,0 +1,9 @@
+# more on https://github.com/fzaninotto/Faker#formatters
+AppBundle\Entity\Author:
+    author{1..20}:
+        name: <name()>
+        
+AppBundle\Entity\Post:
+    post{1..40}:
+        title: <word()>
+        author: "@author*"
